@@ -16,15 +16,57 @@ Projeto de criação de um sistema para controle de estoque para a EletroTech mo
 • As tecnologias e ferramentas utilizadas no desenvolvimento do projeto são Java e SQLite. </br>
 
 ### Estrutura do Banco de Dados
-• O sistema será estruturado em torno de quatro tabelas principais: </br>
-1. Tabela de Produtos: Detalhando cada item vendido, com informações abrangentes. </br>
-2. Tabela de Estoque: Monitorando a quantidade disponível de cada produto.</br>
-3. Tabela de Movimentações de Estoque: Registrando todas as entradas e saídas de produtos.</br>
-4. Tabela de Fornecedores: Mantendo informações sobre os fornecedores e o histórico de pedidos.</br>
+• O sistema será estruturado em permitir um controle preciso sobre o fluxo de produtos, desde o recebimento à movimentação de saída, controlados por  quatro cadastros principais: </br>
+1. Fornecedor: Mantendo informações sobre os fornecedores.</br>
+2. Produtos: Detalhando as principais informações de cada produto, com informações abrangentes.</br>
+3. Fornecedor_Produto: MTabela de associação que conecta produtos aos seus respectivos fornecedores, permitindo à empresa identificar rapidamente de onde os produtos estão vindo e para onde estão indo, o que é essencial para a gestão da cadeia de suprimentos e para negociações de compra.</br>
+3. Movimentações de Estoque: Registrando todas as entradas e saídas de produtos, fornecendo dados em tempo real sobre a disponibilidade, custos, validade.</br>
+
+O projeto descrito é um sistema de banco de dados relacional projetado para gerenciar as operações de inventário e as relações com fornecedores de uma empresa. A seguir, detalho a estrutura do banco de dados e a finalidade de cada uma das tabelas propostas:
+-- Criação da tabela de Fornecedores
+CREATE TABLE FORNECEDOR (
+    Id INT PRIMARY KEY,
+    CNPJ_CPF VARCHAR(18),
+    Razao_Social VARCHAR(50),
+    Nome VARCHAR(50)
+);
+
+-- Criação da tabela de Produtos
+CREATE TABLE PRODUTO (
+    Id INT PRIMARY KEY,
+    Nome VARCHAR(30),
+    Descricao VARCHAR(100),
+    Categoria VARCHAR(50)
+);
+
+-- Criação da tabela de Movimentação de Estoque
+CREATE TABLE MOVIMENTACAO_ESTOQUE (
+    Id INT PRIMARY KEY,
+    Produto_Id INT,
+    Data DATE,
+    Quantidade REAL,
+    Tipo_Movimentacao VARCHAR(30),
+    Custo REAL,
+    Lote INT,
+    Validade DATE,
+    FOREIGN KEY (Produto_Id) REFERENCES PRODUTO(Id)
+);
+
+-- Criação da tabela de associação entre Fornecedores e Produtos
+CREATE TABLE FORNECEDOR_PRODUTO (
+    Id INT PRIMARY KEY,
+    Produto_Id INT,
+    Fornecedor_Id INT,
+    FOREIGN KEY (Produto_Id) REFERENCES PRODUTO(Id),
+    FOREIGN KEY (Fornecedor_Id) REFERENCES FORNECEDOR(Id)
+);
+
 
 ### Configuração do Projeto
-• Instruções sobre como configurar e iniciar o projeto. Esta seção é dividida em duas subseções:</br>
-Pré-Requisitos: Lista de tudo que é necessário antes de começar a instalação, como Java JDK, SQLitee uma IDE apropriada.</br>
+Pré-Requisitos: 
+• Instalação do Java JDK; </br>
+• SQLite Studio; </br>
+
 Instalação e Execução: Um passo a passo detalhando como clonar o repositório, configurar o ambiente e executar o projeto.</br>
 
 ### Uso
