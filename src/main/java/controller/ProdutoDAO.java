@@ -13,7 +13,7 @@ public class ProdutoDAO {
         this.conn = ConexaoSQLite.getConexao();
     }
 
-    // select
+    // LISTAR TODOS OS PRODUTOS
     public ArrayList<Produto> getAll() throws SQLException {
         ArrayList<Produto> produtos = new ArrayList<>();
         String sql = "SELECT * FROM produto;";
@@ -32,7 +32,7 @@ public class ProdutoDAO {
         return produtos;
     }
 
-    // select one
+    // SELECIONAR UM PRODUTO
     public Produto getOne(int id) throws SQLException {
         String sql = "SELECT * FROM produto WHERE Id = ?;";
         PreparedStatement preparedStatement = conn.prepareStatement(sql);
@@ -47,43 +47,51 @@ public class ProdutoDAO {
         return produto;
     }
 
-    // insert
-    public void insert() throws SQLException {
+    // INSERIR NOVO PRODUTO
+    public Produto insert() throws SQLException {
         String sql = "INSERT INTO produto VALUES(null, ?, ?, ?);";
-        PreparedStatement preparedStatement = conn.prepareStatement(sql);
+        String sql2 = "SELECT MAX(Id) as Id,nome,descricao,categoria FROM produto;";
 
+        PreparedStatement preparedStatement = conn.prepareStatement(sql);
         Scanner sc = new Scanner(System.in);
-        System.out.print("Informe o nome do produto: ");
+        System.out.print("\nInforme o nome do produto: ");
         String nome = sc.nextLine();
-        System.out.print("Informe a descrição do produto: ");
+        System.out.print("\nInforme a descrição do produto: ");
         String descricao = sc.nextLine();
-        System.out.println("Informe a categoria do produto: ");
+        System.out.print("\nInforme a categoria do produto: ");
         String categoria = sc.nextLine();
         preparedStatement.setString(1, nome);
         preparedStatement.setString(2, descricao);
         preparedStatement.setString(3, categoria);
         preparedStatement.executeUpdate();
+
+        PreparedStatement prepareStatement2 = conn.prepareStatement(sql2);
+        ResultSet resultSet = prepareStatement2.executeQuery();
+
+        Produto produto = new Produto();
+        produto.setId(resultSet.getInt("Id"));
+        produto.setNome(resultSet.getString("Nome"));
+        produto.setDescricao(resultSet.getString("Descricao"));
+        produto.setCategoria(resultSet.getString("Categoria"));
+        return produto;
     }
 
 
-    // update
+    // ALTERAR UM PRODUTO
     public void update(int id, String campo, String valor) throws SQLException {
-        String sql = "UPDATE produto SET " + campo + " = " + valor + " ' WHERE Id = " + id + ";";
+        String sql = "UPDATE produto SET " + campo + " = '" + valor + " ' WHERE Id = " + id + ";";
         PreparedStatement preparedStatement = conn.prepareStatement(sql);
-        preparedStatement.setString(1, campo);
-        preparedStatement.setString(2, valor);
-        preparedStatement.setInt(3, id);
         preparedStatement.executeUpdate();
     }
 
 
-    // delet
+    // DELETAR UM PRODUTO
     public void delet() throws SQLException {
         String sql = "DELETE FROM produto WHERE Id = ?;";
         PreparedStatement preparedStatement = conn.prepareStatement(sql);
 
         Scanner sc = new Scanner(System.in);
-        System.out.print("Informe o Id do produto: ");
+        System.out.print("\nInforme o Id do produto: ");
         int id = sc.nextInt();
         preparedStatement.setInt(1, id);
         preparedStatement.executeUpdate();
