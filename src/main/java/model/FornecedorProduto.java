@@ -28,4 +28,9 @@ public class FornecedorProduto {
     public void setFkIdFornecedor(int fkIdFornecedor) {
         this.fkIdFornecedor = fkIdFornecedor;
     }
+
+    @Override
+    public String toString() {
+        return String.format("| %-5d | %-5d | %-5d |", id, fkIdProduto, fkIdFornecedor);
+    }
 }

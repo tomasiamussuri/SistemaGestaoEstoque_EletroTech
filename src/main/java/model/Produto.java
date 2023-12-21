@@ -40,9 +40,13 @@ public class Produto {
 
     @Override
     public String toString() {
+        //Formata cada produto em uma tabela
+        return String.format("| %-5d | %-20s | %-50s | %-20s |", id, nome, descricao, categoria);
+        /*
         return "\nPRODUTO - " + id +
                 "\nNome: " + nome +
                 "\nDescricao: " + descricao +
                 "\nCategoria: " + categoria;
+         */
     }
 }

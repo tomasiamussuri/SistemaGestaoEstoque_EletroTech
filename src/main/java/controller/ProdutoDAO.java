@@ -7,35 +7,33 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ProdutoDAO {
-    Connection conn;
-
+    Connection conexao;
     public ProdutoDAO() throws SQLException {
-        this.conn = ConexaoSQLite.getConexao();
+        this.conexao = ConexaoSQLite.getConexao();
     }
 
     // LISTAR TODOS OS PRODUTOS
-    public ArrayList<Produto> getAll() throws SQLException {
+    public ArrayList<Produto> buscarTodos() throws SQLException {
         ArrayList<Produto> produtos = new ArrayList<>();
         String sql = "SELECT * FROM produto;";
-        PreparedStatement preparedStatement = conn.prepareStatement(sql);
-        ResultSet resultSet = preparedStatement.executeQuery();
+        PreparedStatement preparedStatement = conexao.prepareStatement(sql);
+        ResultSet resultSetProduto = preparedStatement.executeQuery();
 
-        while (resultSet.next()) {
+        while (resultSetProduto.next()) {
             Produto produto = new Produto();
-            produto.setId(resultSet.getInt("Id"));
-            produto.setNome(resultSet.getString("Nome"));
-            produto.setDescricao(resultSet.getString("Descricao"));
-            produto.setCategoria(resultSet.getString("Categoria"));
-
+            produto.setId(resultSetProduto.getInt("Id"));
+            produto.setNome(resultSetProduto.getString("Nome"));
+            produto.setDescricao(resultSetProduto.getString("Descricao"));
+            produto.setCategoria(resultSetProduto.getString("Categoria"));
             produtos.add(produto);
         }
         return produtos;
     }
 
     // SELECIONAR UM PRODUTO
-    public Produto getOne(int id) throws SQLException {
+    public Produto buscarUmId(int id) throws SQLException {
         String sql = "SELECT * FROM produto WHERE Id = ?;";
-        PreparedStatement preparedStatement = conn.prepareStatement(sql);
+        PreparedStatement preparedStatement = conexao.prepareStatement(sql);
         preparedStatement.setInt(1, id);
         ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -48,11 +46,11 @@ public class ProdutoDAO {
     }
 
     // INSERIR NOVO PRODUTO
-    public Produto insert() throws SQLException {
+    public Produto cadastrar() throws SQLException {
         String sql = "INSERT INTO produto VALUES(null, ?, ?, ?);";
         String sql2 = "SELECT MAX(Id) as Id,nome,descricao,categoria FROM produto;";
 
-        PreparedStatement preparedStatement = conn.prepareStatement(sql);
+        PreparedStatement preparedStatement = conexao.prepareStatement(sql);
         Scanner sc = new Scanner(System.in);
         System.out.print("\nInforme o nome do produto: ");
         String nome = sc.nextLine();
@@ -65,7 +63,7 @@ public class ProdutoDAO {
         preparedStatement.setString(3, categoria);
         preparedStatement.executeUpdate();
 
-        PreparedStatement prepareStatement2 = conn.prepareStatement(sql2);
+        PreparedStatement prepareStatement2 = conexao.prepareStatement(sql2);
         ResultSet resultSet = prepareStatement2.executeQuery();
 
         Produto produto = new Produto();
@@ -78,17 +76,17 @@ public class ProdutoDAO {
 
 
     // ALTERAR UM PRODUTO
-    public void update(int id, String campo, String valor) throws SQLException {
+    public void alterar(int id, String campo, String valor) throws SQLException {
         String sql = "UPDATE produto SET " + campo + " = '" + valor + " ' WHERE Id = " + id + ";";
-        PreparedStatement preparedStatement = conn.prepareStatement(sql);
+        PreparedStatement preparedStatement = conexao.prepareStatement(sql);
         preparedStatement.executeUpdate();
     }
 
 
     // DELETAR UM PRODUTO
-    public void delet() throws SQLException {
+    public void deletar() throws SQLException {
         String sql = "DELETE FROM produto WHERE Id = ?;";
-        PreparedStatement preparedStatement = conn.prepareStatement(sql);
+        PreparedStatement preparedStatement = conexao.prepareStatement(sql);
 
         Scanner sc = new Scanner(System.in);
         System.out.print("\nInforme o Id do produto: ");
@@ -96,5 +94,10 @@ public class ProdutoDAO {
         preparedStatement.setInt(1, id);
         preparedStatement.executeUpdate();
 
+    }
+    public void cabecalho() {
+        System.out.println("\n+----------------------------------------------------------------------------------------------------------+");
+        System.out.println(String.format("| %-5s | %-20s | %-50s | %-20s |", "ID", "NOME", "DESCRIÇÃO", "CATEGORIA"));
+        System.out.println("+----------------------------------------------------------------------------------------------------------+");
     }
 }
