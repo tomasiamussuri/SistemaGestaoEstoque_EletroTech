@@ -2,8 +2,13 @@ package org.example;
 
 import controller.ProdutoDAO;
 import controller.FornecedorDAO;
+import controller.FornecedorProdutoDAO;
+import controller.MovimentacaoEstoqueDAO;
+
 import model.Produto;
 import model.Fornecedor;
+import model.FornecedorProduto;
+import model.MovimentacaoEstoque;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -13,6 +18,8 @@ public class Main {
     public static void main(String[] args) throws SQLException {
         ProdutoDAO produtoDAO = new ProdutoDAO();
         FornecedorDAO fornecedorDAO = new FornecedorDAO();
+        FornecedorProdutoDAO fornecedorProdutoDAO = new FornecedorProdutoDAO();
+        MovimentacaoEstoqueDAO movimentacaoEstoqueDAO = new MovimentacaoEstoqueDAO();
 
         Scanner sc = new Scanner(System.in);
         int opcao = 0;
@@ -59,7 +66,7 @@ public class Main {
                             System.out.println(produto);
                         }
 
-                    } else if (opcaoProduto == 2) { //BUSCAR UM PRODUTO
+                    } else if (opcaoProduto == 2) { //SELECIONAR UM PRODUTO
                         System.out.print("\nInforme o id do produto: ");
                         int id = sc.nextInt();
                         produtoDAO.cabecalho();;
@@ -160,7 +167,7 @@ public class Main {
                             System.out.println(fornecedor);
                         }
 
-                    } else if (opcaoFornecedor == 2) { //BUSCAR UM FORNECEDOR
+                    } else if (opcaoFornecedor == 2) { //SELECIONAR UM FORNECEDOR
                         System.out.print("\nInforme o Id do fornecedor: ");
                         int id = sc.nextInt();
                         fornecedorDAO.cabecalho();;
@@ -235,9 +242,9 @@ public class Main {
 
             // MENU: PRODUTO x FORNECEDOR
             } else if (opcao == 3) {
-                int opcaoProdutoFornecedor = 0;
+                int opcaoFornecedorProduto = 0;
                 do {
-                    System.out.println("\n*** Cadastro de Produto X Fornecedor ***" +
+                    System.out.println("\n*** Cadastro de Fornecedor X Produto ***" +
                             "\n[1] Listar" +
                             "\n[2] Buscar" + //por nome de produto e nome de fornecedor
                             "\n[3] Inserir" +
@@ -245,12 +252,117 @@ public class Main {
                             "\n[5] Deletar" +
                             "\n[0] Voltar");
                     System.out.print("\nEscolha a opção desejada: ");
-                    opcaoProdutoFornecedor = sc.nextInt();
+                    opcaoFornecedorProduto = sc.nextInt();
 
+                    if (opcaoFornecedorProduto == 0) {
+ 
+                    } else if (opcaoFornecedorProduto == 1) { //LISTAR TODOS OS PRODUTOS X FORNECEDORES
+                        ArrayList<FornecedorProduto> fornecedoresProdutos = new ArrayList<>();
+                        fornecedoresProdutos = fornecedorProdutoDAO.buscarTodos();
+                        fornecedorDAO.cabecalho();
+                        for (FornecedorProduto fornecedorProduto: fornecedoresProdutos) {
+                            System.out.println(fornecedorProduto);
+                        }
+ 
+                    } else if (opcaoFornecedorProduto == 2) { //SELECIONAR UM PRODUTO X FORNECEDOR
+                        System.out.println("\nInforme o Id do produto x fornecedor: ");
+                        int id = sc.nextInt();
+                        fornecedorProdutoDAO.cabecalho();
+                        System.out.println(fornecedorProdutoDAO.buscarUmId(id));
 
-                } while (opcaoProdutoFornecedor != 0);
+                    } else if (opcaoFornecedorProduto == 3) { //CADASTRAR NOVO PRODUTO X FORNECEDOR
+                        FornecedorProduto fornecedorProduto = fornecedorProdutoDAO.cadastrar();
+                        System.out.println("\nProduto x Fornecedor cadastrado com sucesso!");
+                        fornecedorProdutoDAO.cabecalho();
+                        System.out.println(fornecedorProduto);
+                    
+                    } else if (opcaoFornecedorProduto == 4) { //ALTERAR DADOS PRODUTO X FORNECEDOR
+                        int opcaoFornecedorProdutoAlterar = 0;
+                        System.out.println("\nInforme o ID do produto x fornecedor que deseja alterar: ");
 
+                        int id = sc.nextInt();
+                        fornecedorProdutoDAO.cabecalho();
+                        System.out.println(fornecedorProdutoDAO.buscarUmId(id));
+
+                        do {
+                            System.out.println();
+                            System.out.println("\n*** Alterar cadastro do produto x fornecedor ***" +
+                            "\n[1] Id Produto" +
+                            "\n[2] Id Fornecedor" +
+                            "\n[0] Voltar");
+                            System.out.println("\nEscolha a opção desejada: ");
+                            opcaoFornecedorProdutoAlterar = sc.nextInt();
+
+                            if (opcaoFornecedorProdutoAlterar == 0) {
+
+                            } else if (opcaoFornecedorProdutoAlterar == 1) { //ALTERAR ID DO PRODUTO
+                                System.out.println("\nInforme o novo ID do produto: ");
+                                sc.nextLine();
+                                int fk_id_produto = sc.nextInt();
+                                fornecedorProdutoDAO.alterar(id, null, fk_id_produto);
+                                System.out.println("\nId do produto alterado com sucesso!");
+                                fornecedorProdutoDAO.cabecalho();
+                                System.out.println(fornecedorProdutoDAO.buscarUmId(id));
+                            
+                            } else if (opcaoFornecedorProdutoAlterar == 2) { //ALTERAR ID DO FORNECEDOR
+                                System.out.println("\nInforme o novo ID do fornecedor: ");
+                                sc.nextLine();
+                                int fk_id_fornecedor = sc.nextInt();
+                                fornecedorProdutoDAO.alterar(id, null, fk_id_fornecedor);
+                                System.out.println("Id do fornecedor alterado com sucesso!");
+                                fornecedorProdutoDAO.cabecalho();
+                                System.out.println(fornecedorProdutoDAO.buscarUmId(id));
+                            
+                            } else {
+                                System.out.println("\nOpção inválida, tente novamente!");
+                            }
+                        } while (opcaoFornecedorProdutoAlterar != 0);
+                    
+                    } else if (opcaoFornecedorProduto == 5) { //DELETAR PRODUTO X FORNECEDOR
+                        fornecedorProdutoDAO.deletar();
+                        System.out.println("\nProduto x Fornecedor deletado com sucesso!");
+                    } else {
+                        System.out.println("\nOpção inválida, tente novamente!");
+                    }
+
+                } while (opcaoFornecedorProduto != 0);
+            
+            //MENU: MOVIMENTACAO ESTOQUE
             } else if (opcao == 4) {
+                int opcaoMovimentacao = 0;
+
+                do {
+                    System.out.println("\n*** Movimentação de Estoque ***" +
+                    "\n[1] Listar" +
+                    "\n[2] Buscar" + //por produto, fornecedor, data
+                    "\n[3] Inserir" +
+                    "\n[4] Alterar" +
+                    "\n[5] Deletar" +
+                    "\n[0] Voltar");
+                    System.out.print("\nEscolha a opção desejada: ");
+                    opcaoMovimentacao = sc.nextInt();
+
+                    if (opcaoMovimentacao == 0) {
+
+                    } else if (opcaoMovimentacao == 1) { //LISTAR TODAS AS MOVIMENTAÇÕES DE ESTOQUE
+                        ArrayList<MovimentacaoEstoque> movimentacaoEstoque = new ArrayList<>();
+                        movimentacaoEstoque = movimentacaoEstoqueDAO.buscarTodos();
+                        MovimentacaoEstoqueDAO.cabecalho();
+                        for (MovimentacaoEstoque movimentacaoEstoque: movimentacoes) {
+                            System.out.println(fornecedorProduto);
+                    } else if (opcaoMovimentacao == 2) {
+                        
+                    } else if (opcaoMovimentacao == 3) {
+
+                    } else if (opcaoMovimentacao == 4) {
+
+                    } else if (opcaoMovimentacao == 5) {
+
+                    } else {
+                        System.out.println("\nOpção inválida, tente novamente!");
+                    }
+
+                } while (opcaoMovimentacao != 0);
 
             } else {
                 System.out.println("\nOpção inválida, tente novamente!");

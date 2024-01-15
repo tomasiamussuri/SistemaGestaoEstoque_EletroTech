@@ -5,7 +5,7 @@ import java.time.LocalDate;
 public class MovimentacaoEstoque {
     private int id;
     private LocalDate data;
-    private String tpMovimentacao;
+    private String tipoMovimentacao;
     private int fkIdFornecedorProduto;
     private float quantidade;
     private String lote;
@@ -28,12 +28,12 @@ public class MovimentacaoEstoque {
         this.data = data;
     }
 
-    public String getTpMovimentacao() {
-        return tpMovimentacao;
+    public String getTipoMovimentacao() {
+        return tipoMovimentacao;
     }
 
-    public void setTpMovimentacao(String tpMovimentacao) {
-        this.tpMovimentacao = tpMovimentacao;
+    public void setTpMovimentacao(String tipoMovimentacao) {
+        this.tipoMovimentacao = tipoMovimentacao;
     }
 
     public int getFkIdFornecedorProduto() {
@@ -81,7 +81,7 @@ public class MovimentacaoEstoque {
         return "\n***** MOVIMENTAÇÃO DE ESTOQUE *****" +
                 "\nID: " + id +
                 "\nData: " + data +
-                "\nTp Movimentacao: " + tpMovimentacao +
+                "\nTp Movimentacao: " + tipoMovimentacao +
                 "\nFK_Id FornecedorProduto: " + fkIdFornecedorProduto +
                 "\nQuantidade: " + quantidade +
                 "\nLote: " + lote +
