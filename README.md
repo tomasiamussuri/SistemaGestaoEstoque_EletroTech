@@ -4,16 +4,25 @@
 ## Sistema de Controle de Estoque da EletroTech
 Projeto de criação de um sistema para controle de estoque para a EletroTech monitorar e gerenciar seu estoque de forma eficaz, garantindo o equilibrio adequado entre a ferta e demanda.</br>
 
+
 ### Links úteis
+• Características
+• Tecnologias Utilizadas
+• Estrutura do Banco de Dados
+• Configuração do Projeto
+• Uso
+• Contribuições
+
 
 ### Características
 • Rastreamento Preciso de Estoque: Manter uma visão clara e atualizada do estoque disponível. </br>
 • Gestão Eficiente de Fornecedores: Melhorar as relações com fornecedores e otimizar o processo de reabastecimento. </br>
-• Análise de Dados para Tomada de Decisões: Utilizar os dados coletados para tomar decisões informadas sobre compras e vendas. </br>
-• Melhoria da Experiência do Cliente: Assegurar que os produtos mais procurados estejam sempre disponíveis, melhorando assim a satisfação do cliente. </br>
+• Gestão Eficiente de Produtos: Melhorar as relações com fornecedores e otimizar o processo de reabastecimento. </br>
+
 
 ### Tecnologias Utilizadas
 • As tecnologias e ferramentas utilizadas no desenvolvimento do projeto são Java e SQLite. </br>
+
 
 ### Estrutura do Banco de Dados
 • O sistema será estruturado em permitir um controle preciso sobre o fluxo de produtos, desde o recebimento à movimentação de saída, controlados por  quatro cadastros principais: </br>
@@ -67,20 +76,20 @@ Pré-Requisitos:
 • Instalação do Java JDK; </br>
 • SQLite Studio; </br>
 
-Instalação e Execução: Um passo a passo detalhando como clonar o repositório, configurar o ambiente e executar o projeto.</br>
 
 ### Uso
-• Uma explicação de como usar o sistema uma vez que esteja em funcionamento, descrevendo as operações de CRUD e outras funcionalidades. </br>
+• Após iniciar o sistema, você pode realizar as seguintes operações: </br>
+1. Create -> criar registro(s) no banco de dados;
+2. Read -> visualizar registro(s) do banco de dados;
+3. Update -> atualizar registro(s) do banco de dados;
+4. Delete -> deletar registro(s) do banco de dados;  
+
 
 ### Contribuições
-• Diretrizes sobre como contribuir para o projeto, incluindo como fazer fork, criar branches, fazer commits, e abrir Pull Requests. </br>
+• Contribuir para o projeto podem ser feitos fazendo fork e abrindo Pull Requests. </br>
+1. Fazer Fork -> Crie um fork do projeto no GitHub;
+2. Abrir Pull Requests -> Envie um pull request para o repositório original para revisão e possível integração.
 
-A implementação deste projeto será realizada em fases, começando com o design do banco de dados, seguido pela integração com os sistemas existentes da EletroTech, e finalmente, a implantação e o treinamento dos funcionários para o uso eficiente do sistema.
-Este projeto é um passo crucial para a EletroTech no caminho para uma gestão de estoque mais inteligente e eficiente, capacitando a
-empresa a atender melhor seus clientes e a se adaptar dinamicamente às mudanças do mercado.
+Obrigada! </br>
 
-### Licença
-• Informações sobre a licença sob a qual o projeto é distribuído, geralmente a licença MIT para projetos de código aberto. </br>
 
-### Contato
-• Detalhes de contato do autor ou mantenedor do projeto, incluindo nome, e-mail, e link para o repositório do projeto no GitHub. Esta estrutura fornece um guia claro para criar um README informativo e eficaz para o projeto do Sistema de Gestão de Estoque EletroTech, facilitando para os usuários entenderem rapidamente o propósito do projeto e como ele pode ser configurado e utilizado. </br>
