@@ -6,12 +6,12 @@ Projeto de criação de um sistema para controle de estoque para a EletroTech mo
 
 
 ### Links úteis
-• Características
-• Tecnologias Utilizadas
-• Estrutura do Banco de Dados
-• Configuração do Projeto
-• Uso
-• Contribuições
+• Características </br>
+• Tecnologias Utilizadas </br>
+• Estrutura do Banco de Dados </br>
+• Configuração do Projeto </br>
+• Uso </br>
+• Contribuições </br>
 
 
 ### Características
